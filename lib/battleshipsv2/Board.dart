@@ -1,5 +1,8 @@
 // ignore_for_file: file_names
 
+import 'dart:math';
+
+import 'package:testproject/battleshipsv2/FailedToPlaceShipException.dart';
 import 'package:testproject/battleshipsv2/Ship.dart';
 
 import 'package:testproject/battleshipsv2/Square.dart';
@@ -8,6 +11,7 @@ class Board {
   int? row;
   int? col;
   List<List<Square>>? board;
+  List<Ship>? ships;
 
   Board(this.row, this.col)
       : board = List.generate(
@@ -23,6 +27,7 @@ class Board {
         board![i][j] = Square();
       }
     }
+    ships = <Ship>[];
   }
 
   int? getWidth() {
@@ -41,12 +46,38 @@ class Board {
     return board![y][x];
   }
 
-  void setup() {
-    Ship s1 = Ship('Battleship', 'B', 5);
-    Ship s2 = Ship('Battleship', 'B', 5);
-    for (var i = 0; i < 5; i++) {
-      getSquare(i + 1, 1).setShip(s1);
-      getSquare(4, i + 3).setShip(s2);
+  // void setup() {
+  //   Ship s1 = Ship('Battleship', 'B', 5);
+  //   Ship s2 = Ship('Battleship', 'B', 5);
+  //   for (var i = 0; i < 5; i++) {
+  //     getSquare(i + 1, 1).setShip(s1);
+  //     getSquare(4, i + 3).setShip(s2);
+  //   }
+  // }
+
+  void placeShip(Ship ship) {
+    Random random = Random();
+    for (var i = 0; i < random.nextInt(4); i++) {
+      ship.rotate();
+    }
+
+    int x = random.nextInt(col! - ship.getWidth());
+    int y = random.nextInt(row! - ship.getHeight());
+    ship.setLocation(x, y);
+
+    bool collision = false;
+    for (var s in ships!) {
+      if (s.overlap(ship)) {
+        collision = true;
+        break;
+      }
+    }
+
+    if (collision == false) {
+      ship.addToBoard(this);
+      ships!.add(ship);
+    } else {
+      throw FailedToPlaceShipException();
     }
   }
 
