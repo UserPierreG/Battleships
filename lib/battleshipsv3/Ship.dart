@@ -2,7 +2,7 @@
 
 import 'dart:math';
 
-import 'package:testproject/battleshipsv2/Board.dart';
+import 'package:testproject/battleshipsv3/Board.dart';
 
 class Ship {
   String? name;
@@ -11,6 +11,7 @@ class Ship {
   int? x;
   int? y;
   bool? horizontal = false;
+  int? hits = 0;
 
   Ship(String this.name, String this.code, int this.shipSize);
 
@@ -37,6 +38,16 @@ class Ship {
 
   void rotate() {
     horizontal = !horizontal!;
+  }
+
+  bool incrementHitCount() {
+    if (hits != null && shipSize != null) {
+      if (hits! < shipSize!) {
+        hits = hits! + 1;
+      }
+      return hits == shipSize;
+    }
+    return false; // Handle the case where hits or shipSize is null
   }
 
   int getWidth() {
@@ -78,6 +89,10 @@ class Ship {
         board.getSquare(x!, i + y!).setShip(this);
       }
     }
+  }
+
+  bool isSunk() {
+    return hits == shipSize;
   }
 
   @override

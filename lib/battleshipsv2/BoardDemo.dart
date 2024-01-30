@@ -7,9 +7,7 @@ void main() {
   Board b1 = Board(10, 10);
   b1.placeShip(Ship("Battleship", "B", 5));
   b1.placeShip(Ship("Battleship", "B", 5));
-  b1.placeShip(Ship("Battleship", "B", 5));
-  b1.placeShip(Ship("Battleship", "B", 5));
-  b1.placeShip(Ship("Battleship", "B", 5));
+
   print(b1);
   // b1.dropBomb(2, 0);
   // print(b1);
