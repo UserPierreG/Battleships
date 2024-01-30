@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
-import 'package:testproject/battleshipsv4/Ship.dart';
+import 'package:testproject/battleshipsv4/ships/SimpleShip.dart';
 
-class Battleship extends Ship {
+class Battleship extends SimpleShip {
   Battleship() : super("Battleship", "B", 5);
 }

@@ -4,13 +4,12 @@ import 'dart:math';
 
 import 'package:testproject/battleshipsv4/Board.dart';
 
-class Ship {
+abstract class Ship {
   String? name;
   String? code;
   int? shipSize;
   int? x;
   int? y;
-  bool? horizontal = false;
   int? hits = 0;
 
   Ship(String this.name, String this.code, int this.shipSize);
@@ -36,10 +35,6 @@ class Ship {
     this.y = y;
   }
 
-  void rotate() {
-    horizontal = !horizontal!;
-  }
-
   bool incrementHitCount() {
     if (hits != null && shipSize != null) {
       if (hits! < shipSize!) {
@@ -50,21 +45,13 @@ class Ship {
     return false; // Handle the case where hits or shipSize is null
   }
 
-  int getWidth() {
-    if (horizontal == true) {
-      return shipSize!;
-    } else {
-      return 1;
-    }
-  }
+  void rotate();
 
-  int getHeight() {
-    if (horizontal == false) {
-      return shipSize!;
-    } else {
-      return 1;
-    }
-  }
+  void addToBoard(Board board);
+
+  int getHeight();
+
+  int getWidth();
 
   bool overlap(Ship other) {
     Rectangle rectThis = Rectangle(x!, y!, getWidth(), getHeight());
@@ -79,35 +66,7 @@ class Ship {
     return false;
   }
 
-  void addToBoard(Board board) {
-    if (horizontal == true) {
-      for (var i = 0; i < shipSize!; i++) {
-        board.getSquare(i + x!, y!).setShip(this);
-      }
-    } else {
-      for (var i = 0; i < shipSize!; i++) {
-        board.getSquare(x!, i + y!).setShip(this);
-      }
-    }
-  }
-
   bool isSunk() {
     return hits == shipSize;
-  }
-
-  @override
-  String toString() {
-    StringBuffer builder = StringBuffer();
-    if (horizontal == true) {
-      for (var i = 0; i < shipSize!; i++) {
-        builder.write("O");
-      }
-      builder.write("\n");
-    } else {
-      for (var i = 0; i < shipSize!; i++) {
-        builder.write("O\n");
-      }
-    }
-    return builder.toString();
   }
 }
