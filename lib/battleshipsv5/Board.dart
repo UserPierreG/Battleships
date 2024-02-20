@@ -63,7 +63,7 @@ class Board {
   }
 
   void placeShip(Ship ship) {
-    final int breakThreshold = 100000;
+    final int breakThreshold = 1000;
     Random random = Random();
     for (var i = 0; i < random.nextInt(4); i++) {
       ship.rotate();
@@ -106,10 +106,10 @@ class Board {
 
     for (int y = 0; y < row!; y++) {
       StringBuffer builder = StringBuffer();
-      builder.write("${String.fromCharCode('A'.codeUnitAt(0) + y)} ");
+      // builder.write("${String.fromCharCode('A'.codeUnitAt(0) + y)} ");
       for (int x = 0; x < col!; x++) {
         Square square = getSquare(x, y);
-        builder.write("${square.getCodeCharacter(showShips)} ");
+        builder.write("${square.getCodeCharacter(showShips)}");
       }
       array[y] = builder.toString();
     }

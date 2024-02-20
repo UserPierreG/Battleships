@@ -34,11 +34,7 @@ class Square {
   }
 
   String? getCodeCharacter(bool showShips) {
-    if (tried! && ship != null) {
-      if (ship!.isSunk()) {
-        return 'X';
-      }
-    }
+    if (tried! && ship != null) {}
     if (tried!) {
       if (isHit()) {
         return '*';

@@ -18,11 +18,12 @@ void main() {
   // b1.placeShip(Submarine());
   // b1.placeShip(Submarine());
 
-  // for (var i = 1; i < 5; i++) {
-  //   for (var y = 0; y < 10; y++) {
-  //     b1.dropBomb(y, i);
-  //   }
-  // }
+  for (var i = 1; i < 5; i++) {
+    for (var y = 0; y < 10; y++) {
+      b1.dropBomb(y, i);
+      print(b1);
+    }
+  }
 
   print(b1);
 }
